@@ -2,6 +2,12 @@
 
 谢沛霖的个人主页，展示 AI 应用、Agent 工作流与数据科学实践。
 
+## 页面结构
+
+关于我与教育背景 → 实习经历 → 技能 → 作品集 → 荣誉奖项 → 联系与简历。实习内容全部展开，不使用折叠控件。
+
+线上地址：https://w48669664-bit.github.io/
+
 ## 本地预览
 
 需要 Node.js 22.12+。
@@ -15,9 +21,10 @@ npm run dev
 
 ## 修改内容
 
-- `src/content.js`：个人信息、重点项目、探索项目、实习、技能和奖项。
+- `src/content.js`：个人信息、重点项目、完整实习经历、技能和奖项。
 - `src/main.jsx`：页面结构及项目详情交互。
 - `src/styles.css`：响应式布局、深浅色主题和动效。
+- `public/companies/`：来自官方站点的公司标志，来源见 `docs/brand-assets.md`。
 - `public/projects/`：真实项目截图与 WorkRelay 演示视频。
 - `public/Peilin-Xie-Resume.pdf`：用户提供的完整简历。
 
