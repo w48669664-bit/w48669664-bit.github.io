@@ -14,3 +14,5 @@ Updated 2026-09-24: JD Group is the employer; JD Technology is the division.
 | --- | --- | --- |
 | schools/tongji.png | https://www.tongji.edu.cn/xxgk1/xxbs1.htm | https://www.tongji.edu.cn/images/badge.png |
 | schools/soochow.webp | https://xcb.suda.edu.cn/31026/list.htm | Official bitmap logo archive: https://xcb.suda.edu.cn/_upload/article/files/97/51/fdb2a93749be81ea38216267309e/94e6161c-f462-48fe-9015-573dab5e29a6.rar (first emblem, resized and encoded for the web) |
+
+2026-09-24: Replaced JD's white-backed raster asset with a transparent vector mark from https://brandlogovector.com/jd-com-logo-vector/ (original SVG from https://dl.brandlogovector.com/wp-content/uploads/2021/07/JD.com-Logo-Vector.zip). No logo was redrawn.

@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {
-  ArrowUpRight, ArrowDown, ArrowRight, ArrowUp, GithubLogo, Sun, Moon,
+  ArrowUpRight, ArrowDown, ArrowRight, ArrowLeft, ArrowUp, GithubLogo, Sun, Moon,
   List, X, DownloadSimple, Play, CornersOut, Code, TreeStructure,
   ChartLineUp, ChartBar, Check, Copy, GraduationCap, MapPin,
   EnvelopeSimple, Medal, Trophy,
 } from '@phosphor-icons/react';
 import '@fontsource-variable/manrope';
-import {profile, projects, experiences, skills, awards} from './content';
+import {profile, projects, experiences, skills, techStack, awards} from './content';
 import './styles.css';
 import './profile.css';
 
@@ -23,7 +23,7 @@ function SectionHeading({en, title, children}) {
   return <div className="section-heading"><div><p className="eyebrow">{en}</p><h2>{title}</h2></div>{children && <div className="section-intro">{children}</div>}</div>;
 }
 function Metrics({items, className = ''}) {
-  return <div className={`metrics ${className}`}>{items.map(item => <div key={item.label}><strong>{item.value}</strong><span>{item.label}</span></div>)}</div>;
+  return <div className={`metrics ${className}`}>{items.map(item => <div key={item.label}><span className="metric-label">{item.label}</span><strong>{item.value}</strong>{item.note && <small>{item.note}</small>}</div>)}</div>;
 }
 function Experience({item}) {
   return <article className={`experience-entry experience-${item.id}`} id={`experience-${item.id}`}>
@@ -38,11 +38,12 @@ function Experience({item}) {
     <div className="experience-content">
       <p className="experience-lead">{item.intro}</p>
       {item.metrics && <Metrics items={item.metrics}/>}
+      {item.comparison && <div className="effect-comparison" aria-label="延迟登录的人群差异"><div className="effect-title"><span>同一策略，不同人群</span><strong>延迟登录的异质性效果</strong></div>{item.comparison.map(group => <div className="effect-group" key={group.audience}><span>{group.audience}</span><strong>{group.positive ? <ArrowUpRight size={23}/> : <ArrowDown size={23}/>} {group.direction}</strong><p>{group.description}</p></div>)}<p className="effect-note">方向性结论来自简历中的因果森林分析。</p></div>}
       <div className="contribution-list">{item.contributions.map(c => <section className="contribution" key={c.title}>
         <div className="contribution-heading"><h4>{c.title}</h4><span>{c.label}</span></div>
         <div className="contribution-body">{c.paragraphs.map(text => <p key={text}>{text}</p>)}</div>
         {c.workflow && <ol className="workflow" aria-label="分析工作流">{c.workflow.map((step, i) => <li key={step}>{step}{i < c.workflow.length - 1 && <ArrowRight size={14} aria-hidden="true"/>}</li>)}</ol>}
-        {c.result && <p className="contribution-result"><ArrowUpRight size={16} aria-hidden="true"/><span>{c.result}</span></p>}
+        {c.result && <div className="contribution-result"><span><Check size={17} weight="bold" aria-hidden="true"/>项目成果</span><p>{c.result}</p></div>}
       </section>)}</div>
       {item.caseStudy && <section className="business-case" aria-labelledby="business-case-title">
         <div className="case-heading"><span>代表业务项目</span><span>{item.caseStudy.period}</span></div>
@@ -56,14 +57,16 @@ function Experience({item}) {
 }
 function Project({project: p, openProject}) {
   const [currentImage, setCurrentImage] = useState(0);
+  const touchStart = useRef(null);
+  const changeImage = step => setCurrentImage(current => (current + step + p.images.length) % p.images.length);
   return <article className="project" id={`project-${p.id}`}>
-    <div className="project-gallery">
-      <button className={`project-preview preview-${p.id}`} onClick={() => openProject(p, false, currentImage)}>
-        <div className="preview-heading"><span>{p.english}</span><CornersOut size={18}/></div>
-        <div className="screenshot-frame"><img src={photo(p.images[currentImage])} alt={`${p.name}：${p.imageLabels[currentImage]}`} width="1440" height="1000" loading="lazy"/></div>
-        <div className="preview-foot"><span>{p.imageLabels[currentImage]}</span><span>放大查看 <ArrowUpRight size={15}/></span></div>
-      </button>
-      {p.images.length > 1 && <div className="gallery-thumbnails" role="group" aria-label={`${p.name}界面切换`}>{p.images.map((image, i) => <button key={image} className={currentImage === i ? 'selected' : ''} aria-pressed={currentImage === i} onClick={() => setCurrentImage(i)}><img src={photo(image)} alt="" width="144" height="100" loading="lazy"/><span>{p.imageLabels[i]}</span></button>)}</div>}
+    <div className="project-gallery" role="region" aria-roledescription="轮播图" aria-label={`${p.name}产品界面`}>
+      <div className="gallery-top"><span>{p.english}</span><button className="gallery-expand" onClick={() => openProject(p, false, currentImage)} aria-label={`放大${p.name}当前截图`}><CornersOut size={19}/><span>放大</span></button></div>
+      <div className="gallery-stage" tabIndex={0} aria-label="产品截图，使用左右方向键翻页" onKeyDown={event => {if(event.key === 'ArrowRight' || event.key === 'ArrowLeft'){event.preventDefault();changeImage(event.key === 'ArrowRight' ? 1 : -1);}}} onTouchStart={event => {touchStart.current={x:event.touches[0].clientX,y:event.touches[0].clientY};}} onTouchEnd={event => {if(!touchStart.current)return;const dx=event.changedTouches[0].clientX-touchStart.current.x;const dy=event.changedTouches[0].clientY-touchStart.current.y;if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy))changeImage(dx<0?1:-1);touchStart.current=null;}} onTouchCancel={() => {touchStart.current=null;}}>
+        <img key={p.images[currentImage]} src={photo(p.images[currentImage])} alt={`${p.name}：${p.imageLabels[currentImage]}`} width="1440" height="960" loading="lazy" draggable="false"/>
+      </div>
+      <div className="gallery-controls"><button className="gallery-arrow" onClick={() => changeImage(-1)} aria-label={`${p.name}上一张`}><ArrowLeft size={21}/></button><div className="gallery-caption" aria-live="polite" aria-atomic="true"><span>{p.imageLabels[currentImage]}</span><small>{String(currentImage + 1).padStart(2,'0')} <i>/</i> {String(p.images.length).padStart(2,'0')}</small></div><button className="gallery-arrow" onClick={() => changeImage(1)} aria-label={`${p.name}下一张`}><ArrowRight size={21}/></button></div>
+      <div className="gallery-progress" role="group" aria-label={`${p.name}选择截图`}>{p.images.map((image,i)=><button key={image} className={currentImage===i?'selected':''} aria-label={`查看${p.name}第${i+1}张：${p.imageLabels[i]}`} aria-pressed={currentImage===i} onClick={()=>setCurrentImage(i)}><span/></button>)}</div>
     </div>
     <div className="project-copy">
       <div className="project-topline"><span>{p.category}</span><span>{p.state}</span></div>
@@ -148,24 +151,27 @@ function App() {
           <div className="hero-actions"><a href="#experience" className="button primary">了解我的经历 <ArrowDown size={17}/></a><a href={asset('Peilin-Xie-Resume.pdf')} className="text-link" download>下载完整简历 <DownloadSimple size={18}/></a></div>
           <div className="hero-contact"><span><MapPin size={15}/>上海</span><a href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={14}/></a></div>
         </div>
+        <figure className="hero-portrait"><img src={asset('portrait.jpg')} alt="谢沛霖正装证件照" width="1780" height="2359" fetchPriority="high"/><figcaption><span>PEILIN XIE</span><span>同济大学 · 2027 届</span></figcaption></figure>
         <aside className="academic-panel" aria-label="教育背景">
           <div className="academic-heading"><GraduationCap size={21} weight="light"/><h2>教育背景</h2></div>
           <article className="academic-school">
             <div className="academic-identity"><div className="school-emblem"><img src={asset('schools/tongji.png')} width="56" height="56" alt="同济大学校徽"/></div><div><h3>同济大学 <span>（985）</span></h3><p>经济与管理学院</p></div><span className="degree-label">硕士</span></div>
             <div className="academic-major"><h4>管理科学与工程</h4><p>工业工程与管理硕士</p><time>2024.09 - 2027.03</time></div>
             <div className="academic-results"><div><span>硕士 GPA</span><strong>4.8 <small>/ 5.0</small></strong></div><div><span>专业排名</span><strong>Top 1<small>%</small></strong></div></div>
+            <div className="core-courses"><h3>核心课程</h3><p>高级运筹学、优化理论、多元统计、Python 基础、数据库原理、机器学习算法、系统工程与方法</p></div>
           </article>
           <article className="academic-school">
             <div className="academic-identity"><div className="school-emblem"><img src={asset('schools/soochow.webp')} width="56" height="56" alt="苏州大学校徽"/></div><div><h3>苏州大学 <span>（211）</span></h3><p>管理学院</p></div><span className="degree-label">本科</span></div>
             <div className="academic-major"><h4>管理科学与工程</h4><time>2020.09 - 2024.06</time></div>
             <div className="academic-results"><div><span>本科 GPA</span><strong>4.0 <small>/ 4.0</small></strong></div><div><span>专业排名</span><strong>1 <small>/ 95</small></strong></div></div>
-            <p className="academic-distinction"><Medal size={16}/><strong>连续三年专业第一</strong><span>保送同济大学</span></p>
+            <p className="academic-distinction"><Medal size={20}/><strong>连续三年专业第一</strong><span>保送同济大学</span></p>
+            <div className="academic-awards"><p><Medal size={17}/><span>本科生国家奖学金 · 苏州大学学业特等奖学金</span></p><p><Trophy size={17}/><span>美国大学生数学建模竞赛<br/><strong>F 题特等奖提名奖 · 队长 · 全球前 1%</strong></span></p></div>
           </article>
         </aside>
         <div className="personal-profile">
           <div className="strengths-heading"><h2>能力优势</h2><p>连接业务理解、数据方法与产品实践。</p></div>
           <div className="strengths-list">{profile.strengths.map((item, i) => {const Icon = skillIcons[i];return <article key={item.title}><Icon size={23} weight="light"/><h3>{item.title}</h3><p>{item.text}</p></article>;})}</div>
-          <div className="self-evaluation"><h2>自我评价</h2><p>{profile.selfEvaluation}</p></div>
+          <div className="self-evaluation"><h2>自我评价</h2><div>{profile.selfEvaluation.map(text=><p key={text}>{text}</p>)}</div></div>
         </div>
       </section>
 
@@ -177,9 +183,10 @@ function App() {
 
       <section id="skills" className="skills-section"><div className="shell">
         <SectionHeading en="SKILLS & CAPABILITIES" title="技能"><p>以数据分析为基础，<br/>向 AI 应用与 Agent 工程延伸。</p></SectionHeading>
-        <div className="skills-layout"><div className="skills-statement"><TreeStructure size={40} weight="light"/><h3>分析、构建，<br/>再验证。</h3><p>将业务理解、数据方法与<br/>AI 工具连接成完整的工作过程。</p><div className="skill-process"><span>理解需求</span><ArrowDown size={16}/><span>构建方案</span><ArrowDown size={16}/><span>验证与迭代</span></div><a href="#work">查看项目实践 <ArrowUpRight size={18}/></a></div>
+        <div className="skills-layout"><div className="skills-statement"><TreeStructure size={40} weight="light"/><h3>从定义问题，<br/>到交付结果。</h3><p>以业务目标为起点，让数据分析、模型实验与 AI 工程形成一条可以复核、持续改进的工作路径。</p><ol className="method-steps">{[{title:'定义问题',text:'明确目标、人群与约束，统一数据口径，选择能够支持决策的核心指标。'},{title:'分析与验证',text:'通过数据探索、实验设计和因果推断，区分相关性与真实增量，解释人群差异。'},{title:'构建与交付',text:'把有效方法沉淀为脚本、Skill 或应用，连接工具与上下文，完成可运行的交付。'},{title:'复盘与迭代',text:'检查数据质量、使用体验和业务结果，记录取舍，持续优化策略与工作流程。'}].map((step,i)=><li key={step.title}><span>{String(i+1).padStart(2,'0')}</span><div><h4>{step.title}</h4><p>{step.text}</p></div></li>)}</ol><a href="#work">查看项目实践 <ArrowUpRight size={18}/></a></div>
           <div className="skill-list">{skills.map((s,i) => {const Icon=skillIcons[i];return <article className="skill-item" key={s.title}><div className="skill-icon"><Icon size={24} weight="light"/></div><div><div className="skill-heading"><h3>{s.title}</h3><span>{s.english}</span></div><p>{s.text}</p><ul>{s.items.map(t => <li key={t}>{t}</li>)}</ul><p className="skill-evidence">实践：{s.evidence}</p></div></article>;})}</div>
         </div>
+        <section className="tech-stack" aria-labelledby="tech-stack-title"><div className="tech-stack-heading"><h3 id="tech-stack-title">技术栈</h3><p>从数理分析到应用开发，把方法落实到具体工具。</p></div><div className="tech-stack-grid">{techStack.map(group=><article key={group.title}><h4>{group.title}</h4><ul>{group.items.map(item=><li key={item}>{item}</li>)}</ul></article>)}</div></section>
       </div></section>
 
       <section id="work" className="work-section shell">

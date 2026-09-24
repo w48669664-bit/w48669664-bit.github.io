@@ -3,7 +3,7 @@ export const profile = {
   "english": "Peilin Xie",
   "email": "xiepeilin123@sina.cn",
   "github": "https://github.com/w48669664-bit",
-  "introduction": "我是谢沛霖，同济大学管理科学与工程专业硕士，2027 届毕业生。曾在京东集团、eBay 与哈啰出行从事数据科学与分析工作，关注如何将业务问题转化为可验证的策略，并通过 AI 应用与 Agent 工作流提升解决问题的效率。",
+  "introduction": "同济大学管理科学与工程硕士，2027 届。拥有京东集团、eBay 与哈啰出行的数据科学与分析实践，关注业务增长、因果推断，以及 AI 应用和 Agent 工作流的落地。",
   "strengths": [
     {
       "title": "业务理解与因果分析",
@@ -18,7 +18,11 @@ export const profile = {
       "text": "以扎实的数理与编程基础学习新工具，重视数据口径、过程记录和结果复核，持续迭代解决方案。"
     }
   ],
-  "selfEvaluation": "我习惯先把问题定义清楚，再选择合适的方法。对新技术保持好奇，也愿意深入业务细节；既享受把想法做成产品的过程，也重视验证、复盘与跨团队沟通，希望让每一次分析和开发都回应真实需求。"
+  "selfEvaluation": [
+    "习惯先厘清业务目标与问题边界，再选择合适的方法。面对复杂问题，能够从数据口径、用户行为与业务机制三个层面拆解原因，用实验和模型验证判断，也关注结论是否能转化为实际行动。",
+    "对新技术保持好奇，愿意主动学习并动手验证。从分析脚本到 AI 应用，会把重复工作沉淀成可复用的工具与流程；在迭代中重视细节、结果复核和过程记录，持续改进使用体验。",
+    "工作中注重责任心、沟通与协作，能够清楚表达分析依据、方案取舍与不确定性。既愿意独立推进任务，也重视与业务、算法及运营团队对齐目标，以可交付、可验证的结果回应真实需求。"
+  ]
 };
 
 export const projects = [
@@ -32,11 +36,13 @@ export const projects = [
     "image": "lumiframe-home.webp",
     "images": [
       "lumiframe-home.webp",
+      "lumiframe-transformer.webp",
       "lumiframe-create.webp"
     ],
     "imageLabels": [
-      "线上首页",
-      "实际创作界面"
+      "创作室首页",
+      "Transformer 架构演示",
+      "创作与作品设置"
     ],
     "tags": [
       "多模态创作",
@@ -73,12 +79,16 @@ export const projects = [
     "category": "Agent",
     "tagline": "围绕项目上下文，持续跟进需求变化与交付的工作 Agent。",
     "description": "把会议、反馈、需求和产物放进同一份可追溯的项目记录。项目出现变化时，先厘清来源、比较方案和评估影响，再由使用者确认修改，帮助后续工作延续已有决策。",
-    "image": "workrelay.webp",
+    "image": "workrelay-home.webp",
     "images": [
-      "workrelay.webp"
+      "workrelay-home.webp",
+      "workrelay-compare.webp",
+      "workrelay-tasks.webp"
     ],
     "imageLabels": [
-      "决策工作台"
+      "决策工作台",
+      "方案比较与影响分析",
+      "任务与交付"
     ],
     "tags": [
       "MCP",
@@ -116,12 +126,16 @@ export const projects = [
     "category": "Agent",
     "tagline": "让多 Agent 的实施、独立审查与验证过程清晰可见。",
     "description": "为 Codex 与 Antigravity 协作构建的本地工作台。围绕同一项任务组织实施、只读审查、验证与交接，将公开活动与真实产物放在一起，便于追踪每轮工作发生了什么。",
-    "image": "collagent.webp",
+    "image": "collagent-overview.webp",
     "images": [
-      "collagent.webp"
+      "collagent-overview.webp",
+      "collagent-review.webp",
+      "collagent-artifact.webp"
     ],
     "imageLabels": [
-      "协作过程与产物工作台"
+      "协作总览 · 历史运行",
+      "独立审查与验证记录",
+      "实际产物预览"
     ],
     "tags": [
       "Agentic Engineering",
@@ -158,12 +172,16 @@ export const projects = [
     "category": "AI 应用",
     "tagline": "把歌曲音频转换为可以边听、边看、边校对的吉他练习稿。",
     "description": "从个人吉他练习需求出发，将调性分析、基础和弦估计、歌词时间与指法展示组织在一个播放界面中。上传音频后得到草稿，再通过听辨与编辑逐步校准。",
-    "image": "xiange.webp",
+    "image": "xiange-home.webp",
     "images": [
-      "xiange.webp"
+      "xiange-home.webp",
+      "xiange-timeline.webp",
+      "xiange-edit.webp"
     ],
     "imageLabels": [
-      "和弦与歌词练习工作室"
+      "歌词与和弦 · 原创示例",
+      "和弦时间轴",
+      "歌词编辑与校准"
     ],
     "tags": [
       "浏览器音频分析",
@@ -202,11 +220,13 @@ export const projects = [
     "image": "trade-snapshots.webp",
     "images": [
       "trade-snapshots.webp",
-      "trade-dashboard.webp"
+      "trade-dashboard.webp",
+      "trade-records.webp"
     ],
     "imageLabels": [
       "每日快照 · 示例账户",
-      "风险与策略 · 示例账户"
+      "风险与策略 · 示例账户",
+      "交易记录 · 示例账户"
     ],
     "tags": [
       "本地 OCR",
@@ -243,12 +263,16 @@ export const projects = [
     "category": "数据工具",
     "tagline": "沿着统一的盘中时间轴，观察与比较 A 股板块资金流向。",
     "description": "把分散在行情表格里的资金数据组织成可阅读的图谱，通过资金曲线、焦点板块和行情回放，帮助理解不同板块在同一时点的相对变化。",
-    "image": "flowquant.webp",
+    "image": "flowquant-overview.webp",
     "images": [
-      "flowquant.webp"
+      "flowquant-overview.webp",
+      "flowquant-replay.webp",
+      "flowquant-analysis.webp"
     ],
     "imageLabels": [
-      "资金流向可视化终端"
+      "资金全景 · 演示数据",
+      "盘中回放 · 演示数据",
+      "板块分析 · 演示数据"
     ],
     "tags": [
       "数据可视化",
@@ -284,7 +308,7 @@ export const experiences = [
     "id": "jd",
     "company": "京东集团",
     "english": "JD.com",
-    "logo": "jd-group.png",
+    "logo": "jd-group.svg",
     "role": "数据分析师",
     "team": "京东科技 · 平台量化策略组",
     "date": "2026.03 - 2026.08",
@@ -333,15 +357,18 @@ export const experiences = [
     "metrics": [
       {
         "value": "+85%",
-        "label": "常规取数响应效率"
+        "label": "常规取数响应效率",
+        "note": "Multi-Agent 自动化取数"
       },
       {
         "value": "−75%",
-        "label": "异动分析与报告周期"
+        "label": "异动分析与报告周期",
+        "note": "归因到报告的闭环工作流"
       },
       {
         "value": "+17%",
-        "label": "流量分发 ROI"
+        "label": "流量分发 ROI",
+        "note": "Uplift 分层与三轨实验"
       }
     ],
     "caseStudy": {
@@ -404,7 +431,8 @@ export const experiences = [
         "label": "产品实验",
         "paragraphs": [
           "针对跨境业务新客占比高（超过 70%）导致的前置登录流失痛点，主导延迟登录策略的效果评估。通过设计 A/B 实验，对比延迟登录与原前置登录方案，评估登录时机调整对用户结算链路的影响。"
-        ]
+        ],
+        "result": "建立前置登录与延迟登录的实验对照，围绕结算链路评估策略效果，为人群差异分析提供依据。"
       },
       {
         "title": "新老用户的异质性处理效应分析",
@@ -413,6 +441,37 @@ export const experiences = [
         "paragraphs": [
           "在实验评估基础上，运用 Causal Forest 因果森林模型，分析新老用户在结算链路中的异质性处理效应（HTE），精准量化延迟登录策略对新用户的正向增益，以及对老用户的负面影响。"
         ]
+      }
+    ],
+    "metrics": [
+      {
+        "value": ">70%",
+        "label": "跨境业务新客占比",
+        "note": "登录链路优化的业务背景"
+      },
+      {
+        "value": "A/B",
+        "label": "前置与延迟登录对照",
+        "note": "评估登录时机的策略效果"
+      },
+      {
+        "value": "HTE",
+        "label": "识别新老用户差异",
+        "note": "Causal Forest · 异质性效应"
+      }
+    ],
+    "comparison": [
+      {
+        "audience": "新用户",
+        "direction": "正向增益",
+        "description": "延迟登录对新客结算链路产生正向影响。",
+        "positive": true
+      },
+      {
+        "audience": "老用户",
+        "direction": "负向影响",
+        "description": "同一策略对老客存在负面影响，需要差异化判断。",
+        "positive": false
       }
     ]
   },
@@ -454,15 +513,18 @@ export const experiences = [
     "metrics": [
       {
         "value": "1.5 → 1.8",
-        "label": "外部获客渠道 ROI"
+        "label": "外部获客渠道 ROI",
+        "note": "依据渠道 ROI 调整预算"
       },
       {
         "value": "−8%",
-        "label": "获客 CPC"
+        "label": "获客 CPC",
+        "note": "优化获客成本"
       },
       {
         "value": "80%",
-        "label": "试点城市首单完成率"
+        "label": "试点城市首单完成率",
+        "note": "合成控制法评估补贴"
       }
     ]
   }
@@ -519,6 +581,84 @@ export const skills = [
   }
 ];
 
+export const techStack = [
+  {
+    "title": "编程与数据处理",
+    "items": [
+      "SQL",
+      "Python",
+      "Pandas",
+      "NumPy",
+      "SciPy",
+      "JavaScript",
+      "TypeScript"
+    ]
+  },
+  {
+    "title": "机器学习与深度学习",
+    "items": [
+      "Scikit-learn",
+      "LightGBM",
+      "XGBoost",
+      "随机森林",
+      "分类 / 回归 / 聚类",
+      "PyTorch",
+      "CNN",
+      "Transformer"
+    ]
+  },
+  {
+    "title": "实验与因果推断",
+    "items": [
+      "A/B 实验",
+      "AA 检验",
+      "PSM",
+      "合成控制法 SCM",
+      "Uplift Modeling",
+      "Causal Forest",
+      "HTE 分析"
+    ]
+  },
+  {
+    "title": "AI 应用与 Agent",
+    "items": [
+      "Codex",
+      "Vibe Coding",
+      "Multi-Agent",
+      "MCP",
+      "Skill 封装",
+      "上下文管理",
+      "Whisper",
+      "TTS"
+    ]
+  },
+  {
+    "title": "应用工程与交付",
+    "items": [
+      "React",
+      "Vite",
+      "Node.js",
+      "Git / GitHub",
+      "GitHub Pages",
+      "Web Audio",
+      "Web Worker",
+      "FFmpeg"
+    ]
+  },
+  {
+    "title": "可视化与业务分析",
+    "items": [
+      "Matplotlib",
+      "Tableau",
+      "Power BI",
+      "Excel",
+      "指标体系",
+      "用户分层",
+      "LTV / CAC / ROI"
+    ]
+  }
+];
+
 export const awards = [
   {
     "title": "本科生国家奖学金",
@@ -537,7 +677,7 @@ export const awards = [
     "group": "scholarship"
   },
   {
-    "title": "黄贤亨捐助类奖学金",
+    "title": "黄乾亨捐助类奖学金",
     "type": "捐助类奖学金",
     "group": "scholarship"
   },
