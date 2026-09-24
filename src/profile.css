@@ -49,4 +49,71 @@
 @media(max-width:370px){.hero-name h1{font-size:44px}.hero-name h1>span{font-size:19px}.hero-portrait{width:90px}.hero-name{min-height:130px;padding-right:95px}.hero-role{font-size:15px;gap:8px}.hero-actions .text-link{font-size:13px}.academic-panel{padding:23px 18px}.academic-identity h3{font-size:22px}.academic-distinction{font-size:15px}.academic-distinction>span{font-size:13px}.academic-results{gap:15px}.academic-results>div+div{padding-left:15px}.academic-results strong{font-size:29px}.contact-row>div>a,.contact-row strong{font-size:14px}.company-profile{grid-template-columns:1fr 87px}.effect-comparison{grid-template-columns:1fr}.effect-title,.effect-note{grid-column:1}.gallery-top>span{font-size:12px}.gallery-controls{grid-template-columns:38px 1fr 38px}.gallery-arrow{width:38px;height:38px}}
 @media print{.hero-portrait{width:140px}.academic-panel{grid-column:1/-1}.metrics{break-inside:avoid}.gallery-controls,.gallery-progress,.gallery-expand{display:none}.project-gallery{position:static}.contribution-result{break-inside:avoid}}
 .skills-statement .method-steps p{color:#c2cec5}.skills-statement .method-steps li>span{color:#c2ddbb}.gallery-stage{aspect-ratio:3/2}.gallery-stage img{height:100%;object-fit:contain}
-.academic-school .core-courses{display:block;margin-top:25px;padding-top:20px}.academic-school .core-courses p{margin-top:10px;max-width:440px;font-size:14px}
+/* Compact opening: personal profile left, education right, shared coursework. */
+.about-section{grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:32px 48px;padding-top:38px}
+.hero-copy{display:block;max-width:none;padding-top:12px;min-width:0}
+.hero-kicker{margin-bottom:24px;padding:0}
+.hero-identity{display:grid;grid-template-columns:minmax(0,1fr) 138px;gap:22px;align-items:center}
+.hero-name{padding:0;min-height:0;grid-column:auto;grid-row:auto}
+.hero-name h1{font-size:62px;letter-spacing:-2.5px}
+.hero-name h1>span{font-size:24px;margin-top:12px}
+.hero-portrait{width:138px;max-width:none;grid-column:auto;grid-row:auto;align-self:center}
+.hero-portrait img{display:block;border-radius:10px}
+.hero-portrait figcaption{display:none}
+.hero-role{margin-top:26px;font-size:18px}
+.hero-description{margin-top:19px;font-size:17px;line-height:1.95;max-width:none}
+.hero-actions{margin-top:25px;gap:20px;flex-wrap:wrap}
+.hero-contact{margin-top:24px;gap:12px 20px;flex-wrap:wrap;font-size:14px}
+.academic-panel{grid-column:2;grid-row:1;grid-template-columns:1fr;gap:18px;padding:24px 26px;border-radius:16px}
+.academic-heading{padding-bottom:16px}
+.academic-school{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);gap:14px 20px;padding:0}
+.academic-school+.academic-school{border-left:0;border-top:1px solid var(--line);padding:19px 0 0;margin:0}
+.academic-identity{grid-column:1/-1;gap:12px;flex-wrap:nowrap}
+.academic-identity h3{font-size:23px}
+.academic-identity h3>span{font-size:13px}
+.academic-identity p{font-size:13px}
+.school-emblem{width:47px;height:47px}
+.school-emblem img{width:43px;height:43px}
+.degree-label{display:block}
+.academic-major{margin:0}
+.academic-major h4{font-size:16px}
+.academic-major p{font-size:14px}
+.academic-major time{font-size:12px;margin-top:6px}
+.academic-results{margin:0;gap:12px;align-self:center}
+.academic-results>div{gap:6px}
+.academic-results>div+div{padding-left:12px}
+.academic-results>div>span{font-size:12px}
+.academic-results strong{font-size:28px;white-space:nowrap}
+.academic-results small{font-size:15px}
+.academic-distinction{grid-column:1/-1;margin:0;padding:9px 12px;font-size:16px;gap:8px}
+.academic-distinction>span{width:auto;padding:0;font-size:13px}
+.academic-awards{grid-column:1/-1;margin:0;gap:5px;font-size:13px;line-height:1.8}
+.academic-awards p{gap:8px}
+.core-courses{grid-column:1/-1;display:block;padding-top:16px}
+.core-courses p{margin-top:6px;font-size:13px;line-height:1.85}
+.personal-profile{margin-top:0}
+.company-logo-jd,[data-theme=dark] .company-logo-jd{width:190px;height:60px;padding:0;background:transparent;overflow:visible}
+.company-logo-jd img,[data-theme=dark] .company-logo-jd img{display:block;width:190px;height:auto;max-width:100%;max-height:none;object-fit:contain}
+@media(max-width:1200px) and (min-width:1001px){
+  .about-section{gap:30px;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)}
+  .hero-identity{grid-template-columns:minmax(0,1fr) 110px;gap:15px}.hero-portrait{width:110px}.hero-name h1{font-size:53px}.hero-role{font-size:16px}
+  .academic-panel{padding:22px}.academic-school{gap:14px}.academic-results strong{font-size:25px}.academic-results small{font-size:14px}
+}
+@media(max-width:1000px){
+  .about-section{grid-template-columns:1fr;gap:28px;padding-top:30px}
+  .hero-copy{max-width:700px;width:100%;justify-self:center;padding:0}
+  .hero-identity{grid-template-columns:minmax(0,1fr) 132px}.hero-portrait{width:132px}
+  .academic-panel{grid-column:1;grid-row:auto;grid-template-columns:1fr 1fr;gap:22px}
+  .academic-school{display:block}.academic-school+.academic-school{border-top:0;border-left:1px solid var(--line);padding:0 0 0 22px}
+  .academic-major,.academic-results{margin-top:16px}.academic-distinction{margin-top:16px}.academic-awards{margin-top:12px}
+  .academic-identity h3{font-size:23px}.degree-label{display:none}
+}
+@media(max-width:600px){
+  .hero-kicker{margin-bottom:20px;font-size:13px}.hero-identity{grid-template-columns:minmax(0,1fr) 100px;gap:16px}
+  .hero-portrait{width:100px}.hero-name h1{font-size:46px;letter-spacing:-2px}.hero-name h1>span{font-size:21px;margin-top:9px}
+  .hero-role{font-size:16px;margin-top:23px;gap:9px}.hero-description{font-size:16px;margin-top:16px}.hero-actions{margin-top:22px}.hero-contact{font-size:13px;margin-top:20px}
+  .academic-panel{grid-template-columns:1fr;padding:22px 20px;gap:19px}.academic-school+.academic-school{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}
+  .academic-results strong{font-size:31px}.academic-results small{font-size:17px}.academic-results>div>span{font-size:13px}.academic-awards{font-size:14px}
+  .core-courses p{font-size:14px}.company-logo-jd,[data-theme=dark] .company-logo-jd{width:110px;height:48px}.company-logo-jd img,[data-theme=dark] .company-logo-jd img{width:110px}
+}
+@media(max-width:370px){.hero-identity{grid-template-columns:minmax(0,1fr) 87px;gap:10px}.hero-portrait{width:87px}.hero-name h1{font-size:40px}.hero-name h1>span{font-size:19px}.hero-role{font-size:15px;gap:7px}.company-logo-jd,[data-theme=dark] .company-logo-jd{width:87px}}

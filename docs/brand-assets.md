@@ -16,3 +16,5 @@ Updated 2026-09-24: JD Group is the employer; JD Technology is the division.
 | schools/soochow.webp | https://xcb.suda.edu.cn/31026/list.htm | Official bitmap logo archive: https://xcb.suda.edu.cn/_upload/article/files/97/51/fdb2a93749be81ea38216267309e/94e6161c-f462-48fe-9015-573dab5e29a6.rar (first emblem, resized and encoded for the web) |
 
 2026-09-24: Replaced JD's white-backed raster asset with a transparent vector mark from https://brandlogovector.com/jd-com-logo-vector/ (original SVG from https://dl.brandlogovector.com/wp-content/uploads/2021/07/JD.com-Logo-Vector.zip). No logo was redrawn.
+
+2026-09-24 correction: The previous third-party SVG had broken internal clipping that omitted most of the mascot. Replaced it with the complete, transparent horizontal mark `jd-group-complete.svg`, unchanged from https://upload.wikimedia.org/wikipedia/zh/c/c4/JD.com_logo_%282017_ver.%29.svg (source page: https://zh.wikipedia.org/wiki/File:JD.com_logo_(2017_ver.).svg). Visually verified the full mascot and wordmark in both themes.

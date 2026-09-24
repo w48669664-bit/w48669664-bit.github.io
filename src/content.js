@@ -308,7 +308,7 @@ export const experiences = [
     "id": "jd",
     "company": "京东集团",
     "english": "JD.com",
-    "logo": "jd-group.svg",
+    "logo": "jd-group-complete.svg",
     "role": "数据分析师",
     "team": "京东科技 · 平台量化策略组",
     "date": "2026.03 - 2026.08",

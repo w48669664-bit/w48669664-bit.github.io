@@ -145,20 +145,21 @@ function App() {
       <section id="about" className="about-section shell">
         <div className="hero-copy">
           <div className="hero-kicker"><span>个人简历 · 作品集</span><span>2027 届</span></div>
+          <div className="hero-identity">
           <div className="hero-name"><h1>谢沛霖<span>Peilin Xie</span></h1></div>
+        <figure className="hero-portrait"><img src={asset('portrait.jpg')} alt="谢沛霖正装证件照" width="1780" height="2359" fetchPriority="high"/><figcaption><span>PEILIN XIE</span><span>同济大学 · 2027 届</span></figcaption></figure>
+          </div>
           <p className="hero-role">数据科学 <span>×</span> AI 应用 <span>×</span> Agent</p>
           <p className="hero-description">{profile.introduction}</p>
           <div className="hero-actions"><a href="#experience" className="button primary">了解我的经历 <ArrowDown size={17}/></a><a href={asset('Peilin-Xie-Resume.pdf')} className="text-link" download>下载完整简历 <DownloadSimple size={18}/></a></div>
           <div className="hero-contact"><span><MapPin size={15}/>上海</span><a href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={14}/></a></div>
         </div>
-        <figure className="hero-portrait"><img src={asset('portrait.jpg')} alt="谢沛霖正装证件照" width="1780" height="2359" fetchPriority="high"/><figcaption><span>PEILIN XIE</span><span>同济大学 · 2027 届</span></figcaption></figure>
         <aside className="academic-panel" aria-label="教育背景">
           <div className="academic-heading"><GraduationCap size={21} weight="light"/><h2>教育背景</h2></div>
           <article className="academic-school">
             <div className="academic-identity"><div className="school-emblem"><img src={asset('schools/tongji.png')} width="56" height="56" alt="同济大学校徽"/></div><div><h3>同济大学 <span>（985）</span></h3><p>经济与管理学院</p></div><span className="degree-label">硕士</span></div>
             <div className="academic-major"><h4>管理科学与工程</h4><p>工业工程与管理硕士</p><time>2024.09 - 2027.03</time></div>
             <div className="academic-results"><div><span>硕士 GPA</span><strong>4.8 <small>/ 5.0</small></strong></div><div><span>专业排名</span><strong>Top 1<small>%</small></strong></div></div>
-            <div className="core-courses"><h3>核心课程</h3><p>高级运筹学、优化理论、多元统计、Python 基础、数据库原理、机器学习算法、系统工程与方法</p></div>
           </article>
           <article className="academic-school">
             <div className="academic-identity"><div className="school-emblem"><img src={asset('schools/soochow.webp')} width="56" height="56" alt="苏州大学校徽"/></div><div><h3>苏州大学 <span>（211）</span></h3><p>管理学院</p></div><span className="degree-label">本科</span></div>
@@ -167,6 +168,7 @@ function App() {
             <p className="academic-distinction"><Medal size={20}/><strong>连续三年专业第一</strong><span>保送同济大学</span></p>
             <div className="academic-awards"><p><Medal size={17}/><span>本科生国家奖学金 · 苏州大学学业特等奖学金</span></p><p><Trophy size={17}/><span>美国大学生数学建模竞赛<br/><strong>F 题特等奖提名奖 · 队长 · 全球前 1%</strong></span></p></div>
           </article>
+            <div className="core-courses"><h3>核心课程</h3><p>高级运筹学、优化理论、多元统计、Python 基础、数据库原理、机器学习算法、系统工程与方法</p></div>
         </aside>
         <div className="personal-profile">
           <div className="strengths-heading"><h2>能力优势</h2><p>连接业务理解、数据方法与产品实践。</p></div>
