@@ -23,9 +23,10 @@ npm run dev
 
 - `src/content.js`：个人信息、重点项目、完整实习经历、技能和奖项。
 - `src/main.jsx`：页面结构及项目详情交互。
-- `src/styles.css`：响应式布局、深浅色主题和动效。
-- `public/companies/`：来自官方站点的公司标志，来源见 `docs/brand-assets.md`。
-- `public/projects/`：真实项目截图与 WorkRelay 演示视频。
+- `src/styles.css`：基础布局、深浅色主题和动效。
+- `src/profile.css`：简历信息层级、教育卡片、项目多图展示与联系区。
+- `public/companies/` 与 `public/schools/`：来自官方站点的公司标志和校徽，来源见 `docs/brand-assets.md`。
+- `public/projects/`：真实项目截图与 WorkRelay 演示视频；截图采集说明见 `docs/project-media.md`。
 - `public/Peilin-Xie-Resume.pdf`：用户提供的完整简历。
 
 ## 发布

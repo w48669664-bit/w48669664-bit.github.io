@@ -9,6 +9,7 @@ import {
 import '@fontsource-variable/manrope';
 import {profile, projects, experiences, skills, awards} from './content';
 import './styles.css';
+import './profile.css';
 
 const asset = path => `${import.meta.env.BASE_URL}${path}`;
 const photo = path => asset(`projects/${path}`);
@@ -39,7 +40,7 @@ function Experience({item}) {
       {item.metrics && <Metrics items={item.metrics}/>}
       <div className="contribution-list">{item.contributions.map(c => <section className="contribution" key={c.title}>
         <div className="contribution-heading"><h4>{c.title}</h4><span>{c.label}</span></div>
-        <p>{c.description}</p>
+        <div className="contribution-body">{c.paragraphs.map(text => <p key={text}>{text}</p>)}</div>
         {c.workflow && <ol className="workflow" aria-label="分析工作流">{c.workflow.map((step, i) => <li key={step}>{step}{i < c.workflow.length - 1 && <ArrowRight size={14} aria-hidden="true"/>}</li>)}</ol>}
         {c.result && <p className="contribution-result"><ArrowUpRight size={16} aria-hidden="true"/><span>{c.result}</span></p>}
       </section>)}</div>
@@ -48,20 +49,26 @@ function Experience({item}) {
         <h4 id="business-case-title">{item.caseStudy.title}</h4><p className="case-intro">{item.caseStudy.description}</p>
         <div className="case-steps">{item.caseStudy.steps.map(step => <div key={step.title}><h5>{step.title}</h5><p>{step.text}</p></div>)}</div>
         <Metrics items={item.caseStudy.results} className="case-metrics"/>
+        <p className="case-conclusion">{item.caseStudy.conclusion}</p>
       </section>}
     </div>
   </article>;
 }
 function Project({project: p, openProject}) {
+  const [currentImage, setCurrentImage] = useState(0);
   return <article className="project" id={`project-${p.id}`}>
-    <button className={`project-preview preview-${p.id}`} onClick={() => openProject(p)}>
-      <div className="preview-heading"><span>{p.english}</span><CornersOut size={18}/></div>
-      <div className="screenshot-frame"><img src={photo(p.image)} alt={`${p.name}：${p.imageLabels[0]}`} width="1440" height="1000" loading="lazy"/></div>
-      <div className="preview-foot"><span>{p.imageLabels[0]}</span><span>查看项目 <ArrowUpRight size={15}/></span></div>
-    </button>
+    <div className="project-gallery">
+      <button className={`project-preview preview-${p.id}`} onClick={() => openProject(p, false, currentImage)}>
+        <div className="preview-heading"><span>{p.english}</span><CornersOut size={18}/></div>
+        <div className="screenshot-frame"><img src={photo(p.images[currentImage])} alt={`${p.name}：${p.imageLabels[currentImage]}`} width="1440" height="1000" loading="lazy"/></div>
+        <div className="preview-foot"><span>{p.imageLabels[currentImage]}</span><span>放大查看 <ArrowUpRight size={15}/></span></div>
+      </button>
+      {p.images.length > 1 && <div className="gallery-thumbnails" role="group" aria-label={`${p.name}界面切换`}>{p.images.map((image, i) => <button key={image} className={currentImage === i ? 'selected' : ''} aria-pressed={currentImage === i} onClick={() => setCurrentImage(i)}><img src={photo(image)} alt="" width="144" height="100" loading="lazy"/><span>{p.imageLabels[i]}</span></button>)}</div>}
+    </div>
     <div className="project-copy">
       <div className="project-topline"><span>{p.category}</span><span>{p.state}</span></div>
       <h3>{p.name}</h3><p className="project-tagline">{p.tagline}</p><p className="project-description">{p.description}</p>
+      <div className="project-features">{p.details.map(detail => <div key={detail.title}><h4>{detail.title}</h4><p>{detail.text}</p></div>)}</div>
       <div className="tags">{p.tags.map(t => <span key={t}>{t}</span>)}</div>
       <div className="project-links"><button className="text-link" onClick={() => openProject(p)}>项目详情 <ArrowUpRight size={18}/></button>{p.url && <OutLink href={p.url}>在线体验</OutLink>}{p.repo && <OutLink href={p.repo}><GithubLogo size={16}/>源码</OutLink>}{p.video && <button className="text-link muted" onClick={() => openProject(p, true)}><Play size={15}/>演示视频</button>}</div>
     </div>
@@ -112,7 +119,7 @@ function App() {
     setTheme(next); document.documentElement.dataset.theme = next;
     try { localStorage.setItem('peilin-theme', next); } catch {}
   };
-  const openProject = (project, play = false) => { setSlide(0); setVideo(play); setSelected(project); };
+  const openProject = (project, play = false, initialSlide = 0) => { setSlide(initialSlide); setVideo(play); setSelected(project); };
   const closeProject = () => { setSelected(null); setVideo(false); };
   const copyEmail = async () => {
     try {
@@ -133,17 +140,33 @@ function App() {
     </div></header>
     <main id="main">
       <section id="about" className="about-section shell">
-        <div className="hero-copy"><p className="eyebrow">ABOUT ME</p><div className="hero-name"><h1>谢沛霖<span>Peilin Xie</span></h1><span className="graduate-label">2027 届</span></div>
+        <div className="hero-copy">
+          <div className="hero-kicker"><span>个人简历 · 作品集</span><span>2027 届</span></div>
+          <div className="hero-name"><h1>谢沛霖<span>Peilin Xie</span></h1></div>
           <p className="hero-role">数据科学 <span>×</span> AI 应用 <span>×</span> Agent</p>
-          <p className="hero-description">以数据理解业务，用 AI 构建解决方案。<br/>在京东科技、eBay 与哈啰出行的实践中，<br className="desktop-break"/>连接策略分析、因果推断与 Agent 工作流。</p>
-          <div className="hero-actions"><a href="#experience" className="button primary">查看实习经历 <ArrowDown size={17}/></a><a href={asset('Peilin-Xie-Resume.pdf')} className="text-link" download>下载简历 <DownloadSimple size={18}/></a></div>
+          <p className="hero-description">{profile.introduction}</p>
+          <div className="hero-actions"><a href="#experience" className="button primary">了解我的经历 <ArrowDown size={17}/></a><a href={asset('Peilin-Xie-Resume.pdf')} className="text-link" download>下载完整简历 <DownloadSimple size={18}/></a></div>
           <div className="hero-contact"><span><MapPin size={15}/>上海</span><a href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={14}/></a></div>
         </div>
-        <aside className="education-panel" aria-label="教育背景"><div className="education-heading"><span><GraduationCap size={22} weight="light"/>教育背景</span><span>EDUCATION</span></div>
-          <article className="education-school"><div className="school-name"><h2>同济大学</h2><span>2024.09 - 2027.03</span></div><p>经济与管理学院</p><h3>管理科学与工程<small>工业工程与管理硕士</small></h3><div className="education-stats"><div><strong>4.8<span>/ 5.0</span></strong><p>硕士 GPA</p></div><div><strong>Top 1<span>%</span></strong><p>专业排名</p></div></div></article>
-          <article className="education-school undergraduate"><div className="school-name"><h2>苏州大学</h2><span>2020.09 - 2024.06</span></div><p>管理学院 / 物流管理与工程</p><div className="undergraduate-stats"><span>GPA <strong>4.0 / 4.0</strong></span><span>专业排名 <strong>1 / 95</strong></span></div><div className="education-note">连续三年专业第一 · 保送同济大学</div></article>
+        <aside className="academic-panel" aria-label="教育背景">
+          <div className="academic-heading"><GraduationCap size={21} weight="light"/><h2>教育背景</h2></div>
+          <article className="academic-school">
+            <div className="academic-identity"><div className="school-emblem"><img src={asset('schools/tongji.png')} width="56" height="56" alt="同济大学校徽"/></div><div><h3>同济大学 <span>（985）</span></h3><p>经济与管理学院</p></div><span className="degree-label">硕士</span></div>
+            <div className="academic-major"><h4>管理科学与工程</h4><p>工业工程与管理硕士</p><time>2024.09 - 2027.03</time></div>
+            <div className="academic-results"><div><span>硕士 GPA</span><strong>4.8 <small>/ 5.0</small></strong></div><div><span>专业排名</span><strong>Top 1<small>%</small></strong></div></div>
+          </article>
+          <article className="academic-school">
+            <div className="academic-identity"><div className="school-emblem"><img src={asset('schools/soochow.webp')} width="56" height="56" alt="苏州大学校徽"/></div><div><h3>苏州大学 <span>（211）</span></h3><p>管理学院</p></div><span className="degree-label">本科</span></div>
+            <div className="academic-major"><h4>管理科学与工程</h4><time>2020.09 - 2024.06</time></div>
+            <div className="academic-results"><div><span>本科 GPA</span><strong>4.0 <small>/ 4.0</small></strong></div><div><span>专业排名</span><strong>1 <small>/ 95</small></strong></div></div>
+            <p className="academic-distinction"><Medal size={16}/><strong>连续三年专业第一</strong><span>保送同济大学</span></p>
+          </article>
         </aside>
-        <div className="profile-summary"><span>关注方向</span><p>AI 应用开发、Agent 工程与数据科学</p><a href="#work">查看实践作品 <ArrowUpRight size={17}/></a></div>
+        <div className="personal-profile">
+          <div className="strengths-heading"><h2>能力优势</h2><p>连接业务理解、数据方法与产品实践。</p></div>
+          <div className="strengths-list">{profile.strengths.map((item, i) => {const Icon = skillIcons[i];return <article key={item.title}><Icon size={23} weight="light"/><h3>{item.title}</h3><p>{item.text}</p></article>;})}</div>
+          <div className="self-evaluation"><h2>自我评价</h2><p>{profile.selfEvaluation}</p></div>
+        </div>
       </section>
 
       <section id="experience" className="experience-section shell">
@@ -171,7 +194,17 @@ function App() {
         <div className="certificates"><span className="certificate-label">证书与语言</span><div><span>ACCA 高级商业会计证书</span><span>IELTS <strong>6.5</strong></span><span>CET-6 <strong>568</strong></span><span>CET-4 <strong>588</strong></span></div></div>
       </section>
 
-      <section id="contact" className="contact-section"><div className="shell contact-inner"><div><p className="eyebrow">CONTACT & RESUME</p><h2>联系与简历</h2><p>更多经历与项目细节，欢迎通过邮件联系。</p></div><div className="contact-links"><div className="email-line"><EnvelopeSimple size={21} weight="light"/><a href={`mailto:${profile.email}`}>{profile.email}</a><button className="icon-button" onClick={copyEmail} aria-label={copied ? '邮箱已复制' : '复制邮箱'}>{copied ? <Check size={18}/> : <Copy size={18}/>}</button><span role="status" className="copy-status">{copied ? '已复制' : ''}</span></div><div className="contact-resources"><a href={asset('Peilin-Xie-Resume.pdf')} download><DownloadSimple size={18}/>下载 PDF 简历<ArrowUpRight size={15}/></a><OutLink href={profile.github}><GithubLogo size={18}/>GitHub</OutLink></div></div></div><footer className="shell"><span>© {new Date().getFullYear()} Peilin Xie</span><span>数据科学 / AI 应用 / Agent</span><a href="#about">回到顶部 <ArrowUp size={15}/></a></footer></section>
+      <section id="contact" className="contact-section">
+        <div className="shell contact-inner">
+          <div className="contact-copy"><p className="eyebrow">CONTACT & RESUME</p><h2>联系与简历</h2><p>如果你正在寻找兼具数据分析能力与 AI 应用实践的伙伴，欢迎进一步了解我的经历与作品。</p><p>关于岗位机会、项目实现或技术交流，可以通过邮件联系我。</p><div className="contact-profile"><span>谢沛霖 · 2027 届</span><span>同济大学硕士 · 上海</span></div><div className="contact-topics"><span>数据科学</span><span>AI 应用</span><span>Agent 工程</span></div></div>
+          <div className="contact-links">
+            <div className="contact-row"><EnvelopeSimple size={24} weight="light"/><div><span>邮件联系</span><a href={`mailto:${profile.email}`}>{profile.email}</a></div><button className="icon-button" onClick={copyEmail} aria-label={copied ? '邮箱已复制' : '复制邮箱'}>{copied ? <Check size={19}/> : <Copy size={19}/>}</button><span role="status" className="copy-status">{copied ? '已复制' : ''}</span></div>
+            <a className="contact-row resource-row" href={asset('Peilin-Xie-Resume.pdf')} download><DownloadSimple size={24} weight="light"/><div><span>完整经历与项目成果</span><strong>下载 PDF 简历</strong></div><ArrowUpRight size={22}/></a>
+            <a className="contact-row resource-row" href={profile.github} target="_blank" rel="noreferrer"><GithubLogo size={24} weight="light"/><div><span>代码、实践与持续迭代</span><strong>在 GitHub 查看我的项目</strong></div><ArrowUpRight size={22}/></a>
+          </div>
+        </div>
+        <footer className="shell"><span>© {new Date().getFullYear()} Peilin Xie</span><span>数据科学 / AI 应用 / Agent</span><a href="#about">回到顶部 <ArrowUp size={15}/></a></footer>
+      </section>
     </main>
 
     <dialog ref={dialog} className="project-dialog" onCancel={closeProject} onClose={() => {if(selected) closeProject();}} onClick={e => {if(e.target===e.currentTarget) closeProject();}} aria-labelledby="dialog-title">

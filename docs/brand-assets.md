@@ -4,6 +4,13 @@ Fetched on 2026-09-23 from each company's official website. These assets identif
 
 | File | Source page | Asset |
 | --- | --- | --- |
-| jdt.svg | https://www.jdt.com.cn/ | https://img1.jcloudcs.com/jdt/header/jdt-logo.svg |
+| jd-group.png | https://ir.jd.com/ | https://ir.jd.com/sites/g/files/knoqqb53391/themes/site/nir_pid834/client/images/main-logo.png |
 | ebay.svg | https://brandpermission.ebay.com/ | Official inline `gh-logo` SVG, extracted without redrawing |
 | hello.png | https://www.hello-inc.com/ | https://m.hellobike.com/resource/helloyun/12399/QgoaP_header__logo--colored.png |
+
+Updated 2026-09-24: JD Group is the employer; JD Technology is the division.
+
+| School asset | Official source | Asset |
+| --- | --- | --- |
+| schools/tongji.png | https://www.tongji.edu.cn/xxgk1/xxbs1.htm | https://www.tongji.edu.cn/images/badge.png |
+| schools/soochow.webp | https://xcb.suda.edu.cn/31026/list.htm | Official bitmap logo archive: https://xcb.suda.edu.cn/_upload/article/files/97/51/fdb2a93749be81ea38216267309e/94e6161c-f462-48fe-9015-573dab5e29a6.rar (first emblem, resized and encoded for the web) |

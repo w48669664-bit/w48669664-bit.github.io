@@ -2,7 +2,7 @@
 :root {
   font-family:'Manrope Variable',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
   font-synthesis:none;color:var(--ink);background:var(--bg);color-scheme:light;
-  --bg:#f7f8f5;--surface:#fff;--ink:#202923;--muted:#66716a;--line:#dce2da;
+  --bg:#f7f8f5;--surface:#fff;--ink:#202923;--muted:#5f6b63;--line:#dce2da;
   --accent:#285d49;--accent-soft:#e9f0e8;--soft:#eff2ed;--dark:#233b31;--dark-text:#f4f7f1;
   --media:#e5ebe2;--radius:18px;
 }
